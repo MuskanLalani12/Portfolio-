@@ -1,12 +1,15 @@
 /* --- Variables & Reset (Keep mostly same but expanded) --- */
 :root {
-    --bg-color: #0a192f;
-    --bg-light: #112240;
-    --text-primary: #ccd6f6;
-    --text-secondary: #8892b0;
+    --bg-color: #000000;
+    /* Pure Black */
+    --bg-light: #121212;
+    /* Dark Gray for cards */
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
     --accent: #64ffda;
+    /* Keep Teal accent or change to #bb86fc (Purple) if preferred */
     --accent-tint: rgba(100, 255, 218, 0.1);
-    --white: #e6f1ff;
+    --white: #ffffff;
     --font-heading: 'Inter', sans-serif;
     --font-body: 'Inter', sans-serif;
     --font-mono: 'Fira Code', monospace;
@@ -147,8 +150,8 @@ header {
     top: 0;
     width: 100%;
     height: var(--nav-height);
-    background-color: rgba(10, 25, 47, 0.85);
-    /* Glassmorphism base */
+    background-color: rgba(0, 0, 0, 0.85);
+    /* Black Glassmorphism */
     backdrop-filter: blur(10px);
     z-index: 1000;
     transition: var(--transition);
