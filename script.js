@@ -9,13 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             header.classList.remove('hide');
         }
-        
+
         if (window.scrollY > 0) {
             header.classList.add('scrolled');
         } else {
             header.classList.remove('scrolled');
         }
-        
+
         lastScrollY = window.scrollY;
     });
 
@@ -35,10 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Close menu when clicking a link
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', () => {
-             body.classList.remove('blur-content');
-             menuToggle.classList.remove('active');
-             navLinks.classList.remove('active');
-             menuToggle.setAttribute('aria-expanded', false);
+            body.classList.remove('blur-content');
+            menuToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+            menuToggle.setAttribute('aria-expanded', false);
         });
     });
 
@@ -59,6 +59,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.fade-up').forEach(el => {
         observer.observe(el);
+    });
+
+    // --- Mouse Move Glow Effect for Cards ---
+    document.querySelectorAll('.project-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+        });
     });
 
     // --- Project Filtering ---
@@ -89,14 +101,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Form Validation ---
     const form = document.getElementById('contact-form');
-    
+
     if (form) {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
             let isValid = true;
-            
+
             const inputs = form.querySelectorAll('input, textarea');
-            
+
             inputs.forEach(input => {
                 const errorMsg = input.parentElement.querySelector('.error-msg');
                 if (!input.value.trim()) {
@@ -106,16 +118,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     input.classList.remove('error');
                     errorMsg.style.display = 'none';
-                    
+
                     // Basic email validation
                     if (input.type === 'email') {
-                         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                         if (!emailPattern.test(input.value)) {
-                             isValid = false;
-                             input.classList.add('error');
-                             errorMsg.innerText = "Please enter a valid email address";
-                             errorMsg.style.display = 'block';
-                         }
+                        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailPattern.test(input.value)) {
+                            isValid = false;
+                            input.classList.add('error');
+                            errorMsg.innerText = "Please enter a valid email address";
+                            errorMsg.style.display = 'block';
+                        }
                     }
                 }
             });

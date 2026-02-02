@@ -1,22 +1,35 @@
 /* --- Variables & Reset (Keep mostly same but expanded) --- */
 :root {
+    /* iOS Dark Mode Palette - OLED Optimized */
     --bg-color: #000000;
-    /* Pure Black */
-    --bg-light: #121212;
-    /* Dark Gray for cards */
-    --text-primary: #ffffff;
-    --text-secondary: #a0a0a0;
-    --accent: #64ffda;
-    /* Keep Teal accent or change to #bb86fc (Purple) if preferred */
-    --accent-tint: rgba(100, 255, 218, 0.1);
+    --bg-light: #1C1C1E;
+    --bg-lighter: #2C2C2E;
+    --bg-tertiary: #3A3A3C;
+
+    --text-primary: #FFFFFF;
+    --text-secondary: #EBEBF5;
+    /* iOS Secondary Label */
+    --text-tertiary: #8E8E93;
+    /* iOS System Gray */
+    --text-quaternary: #48484A;
+
+    --accent: #0A84FF;
+    /* iOS System Blue */
+    --accent-glow: rgba(10, 132, 255, 0.5);
+    --accent-tint: rgba(10, 132, 255, 0.1);
+
     --white: #ffffff;
-    --font-heading: 'Inter', sans-serif;
-    --font-body: 'Inter', sans-serif;
-    --font-mono: 'Fira Code', monospace;
-    --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-    --nav-height: 100px;
+
+    /* Fonts: Native Apple Feel */
+    --font-heading: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+    --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+    --font-mono: "SF Mono", "Fira Code", monospace;
+
+    --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --nav-height: 80px;
     --nav-scroll-height: 70px;
-    --border-radius: 4px;
+    --border-radius: 20px;
+    /* More modern iOS radius */
 }
 
 *,
@@ -36,10 +49,12 @@ body {
     background-color: var(--bg-color);
     color: var(--text-primary);
     font-family: var(--font-body);
-    line-height: 1.6;
-    font-size: 18px;
+    line-height: 1.5;
+    font-size: 17px;
+    /* iOS standard body size */
     overflow-x: hidden;
-    /* Prevent horizontal scroll */
+    -webkit-font-smoothing: antialiased;
+    /* Crisp text */
 }
 
 /* Utilities */
@@ -74,21 +89,37 @@ ul {
 
 .btn {
     display: inline-block;
-    padding: 12px 24px;
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    border-radius: var(--border-radius);
-    font-family: var(--font-mono);
-    font-size: 14px;
+    padding: 16px 32px;
+    color: var(--white);
+    background-color: var(--accent);
+    border: none;
+    border-radius: 14px;
+    /* iOS standard button radius */
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 16px;
     cursor: pointer;
-    background: transparent;
     transition: var(--transition);
     text-align: center;
+    box-shadow: 0 8px 24px rgba(10, 132, 255, 0.2);
 }
 
 .btn:hover {
+    background-color: #409CFF;
+    /* Brighter blue like iOS press */
+    transform: scale(1.02);
+    box-shadow: 0 12px 32px rgba(10, 132, 255, 0.3);
+}
+
+.btn.resume-btn {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    box-shadow: none;
+}
+
+.btn.resume-btn:hover {
     background-color: var(--accent-tint);
-    transform: translateY(-2px);
 }
 
 /* --- Headings --- */
@@ -150,19 +181,22 @@ header {
     top: 0;
     width: 100%;
     height: var(--nav-height);
-    background-color: rgba(0, 0, 0, 0.85);
-    /* Black Glassmorphism */
-    backdrop-filter: blur(10px);
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent black */
+    backdrop-filter: blur(25px) saturate(200%);
+    /* Strong iOS blur */
+    -webkit-backdrop-filter: blur(25px) saturate(200%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     z-index: 1000;
     transition: var(--transition);
     display: flex;
     align-items: center;
-    box-shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.7);
 }
 
 header.scrolled {
     height: var(--nav-scroll-height);
-    box-shadow: 0 20px 30px -20px rgba(2, 12, 27, 0.7);
+    background-color: rgba(28, 28, 30, 0.85);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 header.hide {
@@ -391,13 +425,42 @@ header.hide {
 .project-card {
     background-color: var(--bg-light);
     border-radius: var(--border-radius);
-    padding: 2rem 1.75rem;
+    padding: 2.25rem 2rem;
     transition: var(--transition);
     cursor: default;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    /* Refined border */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.5);
+}
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: var(--border-radius);
+    background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.04), transparent 40%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.project-card:hover::before {
+    opacity: 1;
 }
 
 .project-card:hover {
-    transform: translateY(-7px);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+    background-color: var(--bg-lighter);
 }
 
 .project-card.hidden {
@@ -532,15 +595,37 @@ footer {
 }
 
 /* --- Animations --- */
+/* --- Animations --- */
 .fade-up {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 .fade-up.visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Stagger Delays */
+.delay-100 {
+    transition-delay: 100ms;
+}
+
+.delay-200 {
+    transition-delay: 200ms;
+}
+
+.delay-300 {
+    transition-delay: 300ms;
+}
+
+.delay-400 {
+    transition-delay: 400ms;
+}
+
+.delay-500 {
+    transition-delay: 500ms;
 }
 
 /* --- Media Queries --- */
