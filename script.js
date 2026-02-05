@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let lastScrollY = window.scrollY;
 
     window.addEventListener('scroll', () => {
+        // Nav hide/show
         if (window.scrollY > lastScrollY && window.scrollY > 100) {
             header.classList.add('hide');
         } else {
@@ -17,6 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         lastScrollY = window.scrollY;
+
+        // Scroll Progress Bar
+        const scrollProgress = document.getElementById('scroll-progress');
+        const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = (window.scrollY / scrollTotal) * 100;
+        scrollProgress.style.width = `${progress}%`;
     });
 
     // Mobile Menu
@@ -52,13 +59,63 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                observer.unobserve(entry.target); // Only animate once
+                
+                // If the target is a container, stagger its children
+                if (entry.target.classList.contains('projects-grid') || entry.target.classList.contains('skills-list')) {
+                    const children = entry.target.children;
+                    Array.from(children).forEach((child, index) => {
+                        setTimeout(() => {
+                            child.classList.add('visible');
+                        }, index * 100);
+                    });
+                }
+                
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    document.querySelectorAll('.fade-up').forEach(el => {
+    document.querySelectorAll('.fade-up, .projects-grid, .skills-list').forEach(el => {
+        // Add fade-up to grid children if they don't have it
+        if (el.classList.contains('projects-grid') || el.classList.contains('skills-list')) {
+            Array.from(el.children).forEach(child => child.classList.add('fade-up'));
+        }
         observer.observe(el);
+    });
+
+    // --- Typewriter Effect ---
+    const typewriterElement = document.getElementById('typewriter-text');
+    const textToType = "I build things for the web.";
+    let charIndex = 0;
+
+    function type() {
+        if (charIndex < textToType.length) {
+            typewriterElement.textContent += textToType.charAt(charIndex);
+            charIndex++;
+            setTimeout(type, 100);
+        } else {
+            typewriterElement.classList.add('typewriter-cursor');
+        }
+    }
+
+    // Start typing after hero animation starts
+    setTimeout(type, 1000);
+
+    // --- Magnetic Buttons ---
+    const magneticWraps = document.querySelectorAll('.magnetic-wrap');
+
+    magneticWraps.forEach(wrap => {
+        wrap.addEventListener('mousemove', (e) => {
+            const rect = wrap.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+
+            wrap.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        });
+
+        wrap.addEventListener('mouseleave', () => {
+            wrap.style.transform = `translate(0px, 0px)`;
+        });
     });
 
     // --- Mouse Move Glow Effect for Cards ---

@@ -32,6 +32,19 @@
     /* More modern iOS radius */
 }
 
+/* Scroll Progress Bar */
+#scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: var(--accent);
+    z-index: 2000;
+    transition: width 0.1s ease-out;
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
 *,
 *::before,
 *::after {
@@ -598,7 +611,7 @@ footer {
 /* --- Animations --- */
 .fade-up {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(30px) scale(0.95);
     transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
@@ -626,6 +639,44 @@ footer {
 
 .delay-500 {
     transition-delay: 500ms;
+}
+
+/* Keyframes */
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.floating {
+    animation: float 3s ease-in-out infinite;
+}
+
+.typewriter-cursor::after {
+    content: '|';
+    animation: blink 1s step-end infinite;
+    color: var(--accent);
+    margin-left: 2px;
+}
+
+/* Magnetic Button Utility */
+.magnetic-wrap {
+    display: inline-block;
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 /* --- Media Queries --- */
