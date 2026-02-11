@@ -11,11 +11,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&family=Inter:wght@300;400;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Fira+Code:wght@400;500&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
     <div id="scroll-progress"></div>
 
     <header id="header">
@@ -29,7 +33,7 @@
                             <g transform="translate(11.000000, 5.000000)">
                                 <path
                                     d="M45.691667,4.52916667 L26.8333333,71.4166667 L6.125,4.52916667 L45.691667,4.52916667 Z"
-                                    fill="none" stroke="#64ffda" stroke-width="5" />
+                                    fill="none" stroke="currentColor" stroke-width="5" />
                             </g>
                         </g>
                     </svg>
@@ -38,14 +42,16 @@
 
             <div class="nav-links">
                 <ol>
-                    <li><a href="#about"><span class="number">01.</span> About</a></li>
-                    <li><a href="#projects"><span class="number">02.</span> Projects</a></li>
-                    <li><a href="#contact"><span class="number">03.</span> Contact</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li class="nav-dot">·</li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li class="nav-dot">·</li>
+                    <li><a href="#contact">Contact</a></li>
                 </ol>
                 <div class="nav-cta">
                     <a href="resume.pdf" class="btn resume-btn" target="_blank" rel="noopener noreferrer">Resume</a>
                     <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">
-                        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="12" cy="12" r="5"></circle>
@@ -58,7 +64,7 @@
                             <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
                             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                         </svg>
-                        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
@@ -66,7 +72,6 @@
                     </button>
                 </div>
             </div>
-
 
             <div class="menu-toggle" aria-label="Toggle Menu" role="button">
                 <div class="hamburger"></div>
@@ -82,21 +87,29 @@
                     <span class="mono-text">Hi, my name is</span>
                 </div>
                 <div class="fade-up delay-200">
-                    <h1 class="big-heading">Muskan Lalani.</h1>
+                    <h1 class="big-heading name-heading">Muskan Lalani.</h1>
                 </div>
                 <div class="fade-up delay-300">
-                    <h2 class="big-heading text-secondary" id="typewriter-text"></h2>
+                    <h2 class="big-heading role-heading">
+                        I build <span id="typed-text" class="accent-text"></span><span class="cursor-blink">|</span>
+                    </h2>
                 </div>
                 <div class="fade-up delay-400">
                     <p class="hero-text">
-                        I'm a software engineer specializing in building (and occasionally designing) exceptional
-                        digital
-                        experiences. Currently, I'm focused on clean code and performance.
+                        I’m a software engineer specializing in building clean, performant, and scalable digital
+                        experiences. I focus on writing maintainable code and crafting intuitive user interfaces.
                     </p>
                 </div>
-                <div class="fade-up delay-500 magnetic-wrap">
-                    <a href="#projects" class="btn hero-btn">Check out my work!</a>
+                <div class="fade-up delay-500 hero-ctas">
+                    <div class="magnetic-wrap">
+                        <a href="#projects" class="btn hero-btn">View Projects</a>
+                    </div>
+                    <a href="resume.pdf" class="secondary-link">Let’s work together</a>
                 </div>
+            </div>
+            <div class="scroll-indicator fade-up delay-500">
+                <span>Scroll to explore</span>
+                <div class="arrow">↓</div>
             </div>
         </section>
 
