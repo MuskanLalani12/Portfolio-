@@ -8,17 +8,16 @@
 
     --text-primary: #FFFFFF;
     --text-secondary: #EBEBF5;
-    /* iOS Secondary Label */
     --text-tertiary: #8E8E93;
-    /* iOS System Gray */
     --text-quaternary: #48484A;
 
     --accent: #0A84FF;
-    /* iOS System Blue */
     --accent-glow: rgba(10, 132, 255, 0.5);
     --accent-tint: rgba(10, 132, 255, 0.1);
 
     --white: #ffffff;
+    --black: #000000;
+
 
     /* Fonts: Native Apple Feel */
     --font-heading: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
@@ -29,8 +28,28 @@
     --nav-height: 80px;
     --nav-scroll-height: 70px;
     --border-radius: 20px;
-    /* More modern iOS radius */
+    --shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.5);
 }
+
+[data-theme="light"] {
+    /* iOS Light Mode Palette */
+    --bg-color: #F2F2F7;
+    --bg-light: #FFFFFF;
+    --bg-lighter: #F9F9FB;
+    --bg-tertiary: #E5E5EA;
+
+    --text-primary: #000000;
+    --text-secondary: #3C3C43;
+    --text-tertiary: #8E8E93;
+    --text-quaternary: #C7C7CC;
+
+    --accent: #007AFF;
+    --accent-glow: rgba(0, 122, 255, 0.3);
+    --accent-tint: rgba(0, 122, 255, 0.1);
+
+    --shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.1);
+}
+
 
 /* Scroll Progress Bar */
 #scroll-progress {
@@ -194,17 +213,24 @@ header {
     top: 0;
     width: 100%;
     height: var(--nav-height);
-    background-color: rgba(0, 0, 0, 0.5);
-    /* Semi-transparent black */
+    background-color: var(--bg-color);
+    /* Fallback */
+    background-color: rgba(var(--header-bg-rgb, 0, 0, 0), 0.5);
     backdrop-filter: blur(25px) saturate(200%);
-    /* Strong iOS blur */
     -webkit-backdrop-filter: blur(25px) saturate(200%);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid var(--bg-tertiary);
     z-index: 1000;
     transition: var(--transition);
     display: flex;
     align-items: center;
 }
+
+[data-theme="light"] header {
+    --header-bg-rgb: 242, 242, 247;
+    background-color: rgba(242, 242, 247, 0.7);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
 
 header.scrolled {
     height: var(--nav-scroll-height);
@@ -232,10 +258,12 @@ header.hide {
     transform: translateY(-3px);
 }
 
-.nav-links {
+.nav-cta {
     display: flex;
     align-items: center;
+    gap: 15px;
 }
+
 
 .nav-links ol {
     display: flex;
@@ -247,6 +275,47 @@ header.hide {
     font-family: var(--font-mono);
     font-size: 13px;
 }
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 10px;
+    transition: var(--transition);
+    margin-left: 20px;
+}
+
+.theme-toggle-btn:hover {
+    background-color: var(--bg-tertiary);
+}
+
+.theme-toggle-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+.sun-icon {
+    display: none;
+}
+
+.moon-icon {
+    display: block;
+}
+
+[data-theme="light"] .sun-icon {
+    display: block;
+}
+
+[data-theme="light"] .moon-icon {
+    display: none;
+}
+
 
 .menu-toggle {
     display: none;
@@ -448,8 +517,13 @@ header.hide {
     height: 100%;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.5);
+    box-shadow: var(--shadow);
 }
+
+[data-theme="light"] .project-card {
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
 
 .project-card::before {
     content: '';

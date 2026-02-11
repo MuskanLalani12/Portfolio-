@@ -1,5 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Theme Toggle Logic ---
+    const themeToggle = document.getElementById('theme-toggle');
+    const currentTheme = localStorage.getItem('theme');
+
+    if (currentTheme) {
+        document.documentElement.setAttribute('data-theme', currentTheme);
+    }
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            let theme = document.documentElement.getAttribute('data-theme');
+            if (theme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    }
+
     // --- Navigation & Scroll ---
+
     const header = document.getElementById('header');
     let lastScrollY = window.scrollY;
 
@@ -59,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                
+
                 // If the target is a container, stagger its children
                 if (entry.target.classList.contains('projects-grid') || entry.target.classList.contains('skills-list')) {
                     const children = entry.target.children;
@@ -69,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }, index * 100);
                     });
                 }
-                
+
                 observer.unobserve(entry.target);
             }
         });
